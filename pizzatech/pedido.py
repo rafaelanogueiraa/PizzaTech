@@ -1,3 +1,6 @@
+from pizzatech.precos import calcular_total_final
+
+
 class ItemPedido:
     """Uma pizza e a quantidade pedida dela."""
 
@@ -16,6 +19,7 @@ class Pedido:
         self.cardapio = cardapio
         self.itens = []
         self.finalizado = False
+        self.total_final = None
 
     def _verificar_nao_finalizado(self):
         if self.finalizado:
@@ -52,3 +56,15 @@ class Pedido:
         if item is None:
             raise ValueError("O item não está no pedido.")
         self.itens.remove(item)
+
+    def calcular_total(self):
+        pares = [(item.pizza.preco, item.quantidade) for item in self.itens]
+        return calcular_total_final(pares)
+
+    def finalizar(self):
+        self._verificar_nao_finalizado()
+        if not self.itens:
+            raise ValueError("Não é possível finalizar um pedido vazio.")
+        self.total_final = self.calcular_total()
+        self.finalizado = True
+        return self.total_final
