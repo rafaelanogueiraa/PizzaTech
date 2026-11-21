@@ -31,12 +31,18 @@ class Pedido:
                 return item
         return None
 
+
     def adicionar_item(self, pizza, quantidade):
         self._verificar_nao_finalizado()
         if not self.cardapio.contem(pizza):
             raise ValueError("A pizza não está no cardápio.")
+        if not isinstance(quantidade, int):
+            raise ValueError("A quantidade deve ser um número inteiro.")
+        if not isinstance(quantidade, int):
+            raise ValueError("A quantidade deve ser um número inteiro.")
 
         item = self._buscar_item(pizza)
+
         quantidade_final = quantidade + (item.quantidade if item else 0)
         if (
             not isinstance(quantidade, int)

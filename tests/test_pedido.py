@@ -44,3 +44,8 @@ def test_remover_item_existente(pedido, margherita):
 def test_remover_item_que_nao_esta_no_pedido_e_recusado(pedido, margherita):
     with pytest.raises(ValueError):
         pedido.remover_item(margherita)
+
+
+def test_quantidade_nao_inteira_e_recusada(pedido, margherita):
+    with pytest.raises(ValueError):
+        pedido.adicionar_item(margherita, "dois")
